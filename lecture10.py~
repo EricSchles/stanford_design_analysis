@@ -1,0 +1,18 @@
+class TreeNode:
+    def __init__(self,data,color="white",parent=None,children=[]):
+        self.data = data
+        self.color = color
+        self.parent = parent
+        self.children = children
+    def __str__(self):
+        return repr(self.data)
+
+class GraphNode:
+    def __init__(self,data):
+        self.data = data
+        self.connections = []
+    def __str__(self):
+        return repr(self.data)
+
+class Graph:
+    def 
