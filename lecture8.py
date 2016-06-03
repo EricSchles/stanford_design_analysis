@@ -1,43 +1,44 @@
 class Node:
-    def __init__(self,data,left=None,right=None,parent=None,color=None):
-        self.data = data
+    def __init__(self,key,value,left=None,right=None,parent=None,color=None):
+        self.key = key
+        self.value = value
         self.right = right
         self.left = left
         self.parent = parent
         self.color = color
     def __str__(self):
-        return repr(self.data)
+        return str(self.key)+":"+str(self.value)
 
 class BST:
     def __init__(self):
         self.root = None
 
-    def search(self,i):
+    def search(self,key):
         if self.root:
-            return self._search(self.root,i)
+            return self._search(self.root,key)
         else:
             return None
     def _search(self,x,i):
-        if x.data == i:
+        if x.key == i:
             return x
-        elif i < x.data:
+        elif i < x.key:
             if x.left == None:
                 return x
             else:
                 return self._search(x.left,i)
-        elif i > x.data:
+        elif i > x.key:
             if x.right == None:
                 return x
             else:
                 return self._search(x.right,i)
 
-    def insert(self,i):
+    def insert(self,key,value):
         if not self.root:
-            self.root = Node(i,color="black")
+            self.root = Node(key,value,color="black")
         else:
             x = self.search(i)
-            y = Node(i,parent=x)
-            if i < x.data:
+            y = Node(key,value,parent=x)
+            if i < x.key:
                 x.left = y
             else:
                 x.right = y
@@ -85,7 +86,7 @@ class BST:
         
     def delete(self,i):
         x = self.search(i)
-        if x.data != i:
+        if x.key != i:
             return None
         if x.left == None:
             y = x.right
@@ -108,7 +109,7 @@ class BST:
 
 bst = BST()
 for i in range(10):
-    bst.insert(i)
+    bst.insert(i,i)
 
 print(bst.search(5))
 bst.delete(5)
