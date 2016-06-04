@@ -37,7 +37,11 @@ def depth_first_search(graph,start_node,current_time,level,capture):
     start_node.finish_time = current_time
     start_node.color = "black"
     return start_node.finish_time
-            
+
+def breathe_first_search(graph,start_node,current_time):
+    start_node.color = "grey"
+    
+
 g = Graph()
 graph_nodes = []
 for i in range(20):

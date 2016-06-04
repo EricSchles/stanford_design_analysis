@@ -1,0 +1,70 @@
+import random
+
+class Stack:
+    def __init__(self):
+        self.internal = []
+    def push(self,data):
+        self.internal.append(data)
+    def pop(self):
+        return self.internal.pop()
+    def is_empty(self):
+        return self.internal == []
+    
+class Queue:
+    def __init__(self):
+        self.internal = []
+    def push(self,data):
+        self.internal.insert(0,data)
+    def pop(self):
+        return self.internal.pop()
+    def is_empty(self):
+        return self.internal == []
+
+def dfs(start_node,graph):
+    stack = Stack()
+    stack.push(start_node)
+    print("traversal for dfs:")
+    first_time = True
+    already_seen = []
+    while not stack.is_empty():
+        next_node = stack.pop()
+        if next_node == start_node and not first_time: return
+        [stack.push(elem) for elem in graph[next_node] if not elem in already_seen]
+        already_seen.append(next_node)
+        print(next_node,end=" ")
+        first_time = False
+    print()
+
+def bfs(start_node,graph):
+    queue = Queue()
+    queue.push(start_node)
+    print("traversal for bfs:")
+    first_time = True
+    already_seen = []
+    while not queue.is_empty():
+        next_node = queue.pop()
+        if next_node == start_node and not first_time: return
+        [queue.push(elem) for elem in graph[next_node] if not elem in already_seen]
+        already_seen.append(next_node)
+        print(next_node,end=" ")
+        first_time = False
+    print()
+
+g = {}
+for node in range(20):
+    g[node] = [elem for elem in range(20)]
+    g[node].remove(node)
+    listing = g[node][:]
+    [g[node].remove(i) for i in listing if random.choice([1,2,3]) == 1]
+
+start_node = random.randint(0,19)
+print("start_node:",start_node)
+print("children:",g[start_node])
+count = 0
+for i in range(20):
+    if start_node in g[i]:
+        count += 1
+print("percentage of nodes directly connected to start node:",count/20*100)
+bfs(start_node,g)
+print()
+dfs(start_node,g)
